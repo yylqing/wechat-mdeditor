@@ -7,15 +7,18 @@
   <title>微信公众号格式化编辑器</title>
   <link rel="shortcut icon" href="favicon.png"> 
   <link rel="apple-touch-icon-precomposed" href="favicon.png">
-  <link rel="stylesheet" href="assets/css/vue-eleui.css">
-  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-  <link rel="stylesheet" href="codemirror/codemirror.css">
-  <link rel="stylesheet" href="codemirror/theme/base16-light.css">
-  <link rel="stylesheet" href="codemirror/theme/duotone-light.css">
-  <link rel="stylesheet" href="codemirror/theme/monokai.css">
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.11.1/theme-chalk/index.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/codemirror/5.48.4/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/codemirror/5.48.4/theme/base16-light.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/codemirror/5.48.4/theme/duotone-light.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/codemirror/5.48.4/theme/monokai.min.css">
+
+  <link rel="stylesheet" href="libs/prettify/highlights/github-v2.min.css">
+
   <link rel="stylesheet" href="assets/css/app.css">
 </head>
-<body>
+<body onload="prettyPrint()">
   <div id="app" class="container">
     <el-container>
       <el-header class="top">
@@ -24,29 +27,29 @@
           <el-form-item label="Editor Themes">
             <el-select v-model="currentEditorTheme" size="mini" placeholder="选择字体" @change="editorThemeChanged">
               <el-option v-for="editorTheme in editorThemes" :key="editorTheme.value" :label="editorTheme.label"
-                :value="editorTheme.value">
+                         :value="editorTheme.value">
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Fonts">
             <el-select v-model="currentFont" size="mini" placeholder="选择字体" @change="fontChanged">
-              <el-option v-for="font in builtinFonts"  :style="{fontFamily: font.value}"
-                :key="font.value"
-                :label="font.label"
-                :value="font.value">
+              <el-option v-for="font in builtinFonts" :style="{fontFamily: font.value}"
+                         :key="font.value"
+                         :label="font.label"
+                         :value="font.value">
                 <span style="float: left">{{ font.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px" >Abc</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">Abc</span>
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Font Size">
             <el-select v-model="currentSize" size="mini" placeholder="选择段落字体大小" @change="sizeChanged">
               <el-option v-for="size in sizeOption"
-                :key="size.value"
-                :label="size.label"
-                :value="size.value">
+                         :key="size.value"
+                         :label="size.label"
+                         :value="size.value">
                 <span style="float: left">{{ size.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px" >{{ size.desc }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ size.desc }}</span>
               </el-option>
             </el-select>
           </el-form-item>
@@ -64,12 +67,12 @@
       <el-main class="main-body">
         <el-row :gutter="10" class="main-section">
           <el-col :span="12">
-            <textarea
-              id="editor"
-              type="textarea"
-              placeholder="Your markdown here."
-              v-model="source">
-            </textarea>
+              <textarea
+                  id="editor"
+                  type="textarea"
+                  placeholder="Your markdown here."
+                  v-model="source">
+              </textarea>
           </el-col>
           <el-col :span="12" class="preview-wrapper">
             <section>
@@ -105,26 +108,21 @@
     </el-dialog>
   </div>
 
-  <script src="assets/scripts/axios.min.js"></script>
-  <script src="assets/scripts/marked.min.js"></script>
-  <script src="assets/scripts/vue.js"></script>
-  <script src="assets/scripts/vue-eleui.js"></script>
-  <script src="assets/scripts/FuriganaMD.js"></script>
-  
-  <script src="codemirror/codemirror.js"></script>
-  <script src="codemirror/mode/markdown/markdown.js"></script>
+  <script src="https://cdn.staticfile.org/axios/0.19.0-beta.1/axios.min.js"></script>
+  <script src="https://cdn.staticfile.org/marked/0.7.0/marked.min.js"></script>
+  <script src="https://cdn.staticfile.org/codemirror/5.48.4/codemirror.min.js"></script>
+  <script src="https://cdn.staticfile.org/codemirror/5.48.4/mode/markdown/markdown.min.js"></script>
+  <script src="https://cdn.staticfile.org/prettify/r298/prettify.min.js"></script>
+  <script src="https://cdn.staticfile.org/vue/2.6.10/vue.min.js"></script>
+  <script src="https://cdn.staticfile.org/element-ui/2.11.1/index.js"></script>
+
+  <script src="libs/FuriganaMD.js"></script>
 
   <script src="assets/scripts/themes/default.js"></script>
+  <script src="assets/scripts/themes/lyric.js"></script>
   <script src="assets/scripts/themes/lupeng.js"></script>
   <script src="assets/scripts/renderers/wx-renderer.js"></script>
   <script src="assets/scripts/editor.js"></script>
-  
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4178606-10"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'UA-4178606-10');
-  </script>
+
 </body>
 </html>
