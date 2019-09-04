@@ -2,7 +2,6 @@ var app = new Vue({
   el: '#app',
   data: function () {
     return {
-      title: 'WeChat Format',
       aboutOutput: '',
       output: '',
       source: '',
@@ -14,10 +13,10 @@ var app = new Vue({
       currentEditorTheme: 'base16-light',
       editor: null,
       builtinFonts: [
-        { label: '衬线', value: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"},
-        { label: '无衬线', value: "Roboto, Oxygen, Ubuntu, Cantarell, PingFangSC-light, PingFangTC-light, 'Open Sans', 'Helvetica Neue', sans-serif"}
+        { label: '无衬线', value: "Roboto, Oxygen, Ubuntu, Cantarell, PingFangSC-light, PingFangTC-light, 'Open Sans', 'Helvetica Neue', sans-serif"},
+        { label: '衬线', value: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}
       ],
-      currentFont: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif",
+      currentFont: "Roboto, Oxygen, Ubuntu, Cantarell, PingFangSC-light, PingFangTC-light, 'Open Sans', 'Helvetica Neue', sans-serif",
       currentSize: '16px',
       sizeOption: [
         { label: '16px', value: '16px', desc: '默认' },
@@ -26,11 +25,13 @@ var app = new Vue({
       ],
       currentTheme: 'default',
       themeOption: [
-        { label: 'default', value: 'default', author: 'Lyric'},
+        { label: 'default', value: 'default', author: '张凯强'},
+        { label: 'lyric', value: 'lyric', author: 'Lyric'},
         { label: 'lupeng', value: 'lupeng', author: '鲁鹏'}
       ],
       styleThemes: {
         default: defaultTheme,
+        lyric: lyricTheme,
         lupeng: lupengTheme
       },
       aboutDialogVisible: false
@@ -85,7 +86,6 @@ var app = new Vue({
       this.refresh()
     },
     themeChanged: function(themeName){
-      var themeName = themeName;
       var themeObject = this.styleThemes[themeName];
       this.wxRenderer.setOptions({
         theme: themeObject
@@ -119,6 +119,9 @@ var app = new Vue({
           message: '未能复制到剪贴板，请全选后右键复制', type: 'warning'
         })
       }
+    },
+    openWindow: function(url) {
+      window.open(url);
     }
   }
 })

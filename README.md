@@ -1,21 +1,17 @@
-# 微信公众号排版编辑器
+# 微信公众号 Markdown 编辑器
 
-转化 Markdown 到给微信特制的 HTML
+一款专用于微信公众号的 Web 编辑器，可以将 Markdown 转换为公众号文章格式
 
-- 使用在线版： https://lab.lyric.im/wxformat
-- 介绍：https://mp.weixin.qq.com/s/pn0LzyfgUj6rGUfVHUksjg
+## 功能
 
-## 优点
+- 解决 `ul` 和 `ol` 元素样式渲染时被微信编辑器重置的问题
+- 外链会自动转换为参考文献索引，并且附在文章末尾
+- 支持多种字体和样式
 
-- 能较好地排版
-- 能解决 `ul` 和 `ol` 元素样式渲染时被微信编辑器重置的问题
-- 能把链接自动转换为参考文献索引，并且附在文字末尾
+## 预览
 
-## 关于我
+[在线使用](http://prod.zkqiang.cn/wxeditor)
 
-我是 Lyric。如果你喜欢我的工具，可以：
-
-- 关注我的公众号 `iamlyricw`
-- 关注我的博客 https://lyric.im
-- 给这个项目加星 https://github.com/lyricat/wechat-format
-
+## 关于
+本仓库 Fork 自 [yricat/wechat-format](https://github.com/lyricat/wechat-format)，并根据自用需求进行修改。
+本仓库将持续保持更新，欢迎 Star !

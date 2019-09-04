@@ -1,5 +1,4 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
-a { text-decoration: none; color: #ff3502 }
 input, button, textarea { font-family: inherit; }
 h1, h2, h3, h4, h5, h6 { font-weight: normal; }
 em { font-style: normal !important; }
@@ -7,7 +6,13 @@ html, body {
   height: 100%;
   font-family: 'PingFang SC', BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
 }
-.el-message__icon { display: none }
+
+.copy-button {
+  text-decoration: none; color: #ff3502
+}
+.el-message__icon {
+  display: none
+}
 .container {
   height: 100%;
   display: flex;
@@ -19,9 +24,20 @@ html, body {
   display: flex;
   align-items: center;
 }
-.top .logo {
+.top {
   margin-right: 20px;
 }
+
+.web-title{
+  margin: 0 15px 0 5px;
+}
+
+.web-icon {
+  width: auto;
+  height: 1.5rem;
+  vertical-align: middle;
+}
+
 #editor {
   height: 100%;
   display: block;
@@ -69,9 +85,9 @@ section {
   outline: none;
   box-shadow: 0 0 60px rgba(0,0,0,0.1);
 }
-.preview ul, .preview ol {
-  padding-left: 40px !important;
-}
+/*.preview ul, .preview ol {*/
+/*  padding-left: 40px !important;*/
+/*}*/
 .CodeMirror {
   height: 100%;
   box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
@@ -92,11 +108,9 @@ section {
   word-wrap: break-word !important;
   ont-size: 14px;
   margin: 10px 0;
-  display: block;
   color: #333;
   position: relative;
-  background-color: rgba(0,0,0,0.03);
-  border: 1px solid #f0f0f0;
+  background-color: #f3f3f3;
   border-radius: 2px;
   display: flex;
   line-height: 26px;
@@ -105,7 +119,7 @@ section {
   counter-reset: line;
   flex-shrink: 0;
   height: 100%;
-  padding: 1em;
+  padding: 1em 0 1em 1em;
   list-style-type: none;
 }
 .code-snippet__fix .code-snippet__line-index li {
@@ -123,17 +137,14 @@ section {
 }
 .code-snippet__fix pre {
   overflow-x: auto;
-  padding: 1em;
-  padding-left: 1em;
-  padding-left: 0;
+  padding: 1em 1em 1em 1em;
   white-space: normal;
   flex: 1;
   -webkit-overflow-scrolling: touch;
 }
 .code-snippet__fix code {
   text-align: left;
-  font-size: 14px;
-  display: block;
+  font-size: 80%;
   white-space: pre;
   display: flex;
   position: relative;

@@ -5,102 +5,115 @@ var defaultTheme = {
     'line-height': '1.5'
   },
   BASE_BLOCK: {
-    'margin': '20px 10px'
+    'margin': '1em 8px'
   },
   // block element
   block: {
+    h1: {
+      'font-size': '145%',
+      'text-align': 'center',
+      'font-weight': 'bold',
+      'margin': '1.2em 8px 0.4em 8px'
+    },
     h2: {
-      'font-size': '140%',
-      'text-align': 'center',
-      'font-weight': 'normal',
-      'text-align': 'center',
-      'margin': '80px 10px 40px 10px'
+      'font-weight': 'bold',
+      'font-size': '130%',
+      'margin': '1.2em 8px 0.4em 8px',
+      'border-bottom': '1px solid #eaecef',
+      'padding-bottom': '.1em'
     },
     h3: {
       'font-weight': 'bold',
-      'font-size': '120%',
-      'margin': '40px 10px 20px 10px'
+      'font-size': '115%',
+      'margin': '1.2em 8px 0.4em 8px'
+    },
+    h4: {
+      'font-weight': 'bold',
+      'font-size': '100%',
+      'margin': '1.2em 8px 0.4em 8px'
     },
     p: {
-      'margin': '10px 10px',
+      'margin': '0.5em 8px',
       'line-height': '1.6'
     },
     blockquote: {
       'color': 'rgb(91, 91, 91)',
-      'padding': '1px 0 1px 10px',
+      'padding': '1px 0 1px 8px',
       'background': 'rgba(158, 158, 158, 0.1)',
       'border-left': '3px solid rgb(158,158,158)',
     },
-    code: {
-      'font-size': '80%',
-      'overflow': 'auto',
-      'color': '#333',
-      'background': 'rgb(247, 247, 247)',
-      'border-radius': '2px',
-      'padding': '10px',
-      'line-height': '1.3',
-      'border': '1px solid rgb(236,236,236)',
-      'margin': '20px 0',
+    code_section: {
+      'background': '#f8f8f8',
+      'box-shadow': '0 1px 2px #ccc'
     },
     image: {
       'border-radius': '4px',
       'display': 'block',
-      'margin': '20px auto',
-      'width': '100%',
+      'margin': '1em auto',
+      'width': '100%'
     },
     image_org: {
       'border-radius': '4px',
-      'display': 'block',
+      'display': 'block'
     },
     ol: {
       'margin-left': '0',
-      'padding-left': '20px'
+      'padding-left': '1em'
     },
     ul: {
       'margin-left': '0',
-      'padding-left': '20px',
-      'list-style': 'circle',
+      'padding-left': '1em',
+      'list-style': 'circle'
     },
     footnotes: {
-      'margin': '10px 10px',
-      'font-size': '14px'
-    }  
+      'margin': '0.5em 8px',
+      'font-size': '80%'
+    }
   },
   inline: {
     // inline element
     listitem: {
-      'text-indent': '-20px',
+      'text-indent': '-1em',
       'display': 'block',
-      'margin': '10px 10px',
+      'margin': '0.5em 8px'
+    },
+    code: {
+      'font-size': '80%',
     },
     codespan: {
-      'font-size': '90%',
-      // 'font-family': FONT_FAMILY_MONO,
-      'color': '#ff3502',
-      'background': '#f8f5ec',
+      'font-size': '80%',
+      'color': '#d14',
+      'background': 'rgba(27,31,35,.05)',
       'padding': '3px 5px',
       'border-radius': '2px',
     },
     link: {
-      'color': '#ff3502'
+      'color': '#009926'
+    },
+    wx_link: {
+      'color': '#0080ff',
+      'text-decoration': 'none',
+      'border-bottom': '1px solid #d1e9ff'
     },
     strong: {
-      'color': '#ff3502'
+      'color': '#ff5f2e',
+      'font-weight': 'bold'
     },
     table: {
       'border-collapse': 'collapse',
-      'margin': '20px 0',
+      'text-align': 'center',
+      'margin': '1em 8px'
     },
     thead: {
-      'background': 'rgba(0,0,0,0.05)',
+      'background': 'rgba(0, 0, 0, 0.05)'
     },
     td: {
       'font-size': '80%',
       'border': '1px solid #dfdfdf',
-      'padding': '4px 8px',
+      'padding': '0.25em 0.5em'
     },
     footnote: {
-      'font-size': '12px',
+      'font-size': '12px'
     }
   }
-}
+};
