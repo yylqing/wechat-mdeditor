@@ -1,4 +1,4 @@
-var lupengTheme = {
+let lupengTheme = {
   BASE: {
     'text-align': 'left',
     'color': '#595959',

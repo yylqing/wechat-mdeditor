@@ -1,4 +1,4 @@
-var defaultTheme = {
+let defaultTheme = {
   BASE: {
     'text-align': 'left',
     'color': '#3f3f3f',

@@ -1,7 +1,7 @@
-var app = new Vue({
+let app = new Vue({
   el: '#app',
   data: function () {
-    return {
+    let d = {
       aboutOutput: '',
       output: '',
       source: '',
@@ -10,24 +10,26 @@ var app = new Vue({
         { label: 'duotone-light', value: 'duotone-light' },
         { label: 'monokai', value: 'monokai' }
       ],
-      currentEditorTheme: 'base16-light',
       editor: null,
       builtinFonts: [
-        { label: '无衬线', value: "Roboto, Oxygen, Ubuntu, Cantarell, PingFangSC-light, PingFangTC-light, 'Open Sans', 'Helvetica Neue', sans-serif"},
-        { label: '衬线', value: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}
+        {
+          label: '无衬线',
+          value: "Roboto, Oxygen, Ubuntu, Cantarell, PingFangSC-light, PingFangTC-light, 'Open Sans', 'Helvetica Neue', sans-serif"
+        },
+        {
+          label: '衬线',
+          value: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"
+        }
       ],
-      currentFont: "Roboto, Oxygen, Ubuntu, Cantarell, PingFangSC-light, PingFangTC-light, 'Open Sans', 'Helvetica Neue', sans-serif",
-      currentSize: '16px',
       sizeOption: [
         { label: '16px', value: '16px', desc: '默认' },
         { label: '17px', value: '17px', desc: '正常' },
         { label: '18px', value: '18px', desc: '稍大' }
       ],
-      currentTheme: 'default',
       themeOption: [
-        { label: 'default', value: 'default', author: '张凯强'},
-        { label: 'lyric', value: 'lyric', author: 'Lyric'},
-        { label: 'lupeng', value: 'lupeng', author: '鲁鹏'}
+        { label: 'default', value: 'default', author: '张凯强' },
+        { label: 'lyric', value: 'lyric', author: 'Lyric' },
+        { label: 'lupeng', value: 'lupeng', author: '鲁鹏' }
       ],
       styleThemes: {
         default: defaultTheme,
@@ -35,10 +37,15 @@ var app = new Vue({
         lupeng: lupengTheme
       },
       aboutDialogVisible: false
-    }
+    };
+    d.currentEditorTheme = d.editorThemes[0].value;
+    d.currentFont = d.builtinFonts[0].value;
+    d.currentSize = d.sizeOption[0].value;
+    d.currentTheme = d.themeOption[0].value;
+    return d;
   },
-  mounted () {
-    var self = this
+  mounted() {
+    let self = this;
     this.editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
       lineNumbers: false,
       lineWrapping: true,
@@ -46,15 +53,14 @@ var app = new Vue({
       theme: this.currentEditorTheme,
       mode: 'text/x-markdown',
     });
-    this.editor.on("change", function(cm, change) {
+    this.editor.on("change", function (cm, change) {
       self.refresh()
-    })
-    // this.currentFont = this.builtinFonts[0],
+    });
     this.wxRenderer = new WxRenderer({
       theme: this.styleThemes.default,
       fonts: this.currentFont,
       size: this.currentSize
-    })
+    });
     axios({
       method: 'get',
       url: './assets/default-content.md',
@@ -64,7 +70,7 @@ var app = new Vue({
   },
   methods: {
     renderWeChat: function (source) {
-      var output = marked(source, { renderer: this.wxRenderer.getRenderer() })
+      let output = marked(source, { renderer: this.wxRenderer.getRenderer() });
       if (this.wxRenderer.hasFootnotes()) {
         output += this.wxRenderer.buildFootnotes()
       }
@@ -76,33 +82,33 @@ var app = new Vue({
     fontChanged: function (fonts) {
       this.wxRenderer.setOptions({
         fonts: fonts
-      })
+      });
       this.refresh()
     },
-    sizeChanged: function(size){
+    sizeChanged: function (size) {
       this.wxRenderer.setOptions({
         size: size
-      })
+      });
       this.refresh()
     },
-    themeChanged: function(themeName){
-      var themeObject = this.styleThemes[themeName];
+    themeChanged: function (themeName) {
+      let themeObject = this.styleThemes[themeName];
       this.wxRenderer.setOptions({
         theme: themeObject
-      })
+      });
       this.refresh()
     },
     refresh: function () {
-      this.output = this.renderWeChat(this.editor.getValue())
+      this.output = this.renderWeChat(this.editor.getValue(0))
     },
     copy: function () {
-      var clipboardDiv = document.getElementById('output')
+      let clipboardDiv = document.getElementById('output');
       clipboardDiv.focus();
-      window.getSelection().removeAllRanges();  
-      var range = document.createRange(); 
+      window.getSelection().removeAllRanges();
+      let range = document.createRange();
       range.setStartBefore(clipboardDiv.firstChild);
       range.setEndAfter(clipboardDiv.lastChild);
-      window.getSelection().addRange(range);  
+      window.getSelection().addRange(range);
 
       try {
         if (document.execCommand('copy')) {
@@ -120,8 +126,8 @@ var app = new Vue({
         })
       }
     },
-    openWindow: function(url) {
+    openWindow: function (url) {
       window.open(url);
     }
   }
-})
+});

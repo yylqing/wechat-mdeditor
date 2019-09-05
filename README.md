@@ -14,4 +14,5 @@
 
 ## 关于
 本仓库 Fork 自 [yricat/wechat-format](https://github.com/lyricat/wechat-format)，并根据自用需求进行修改。
-本仓库将持续保持更新，欢迎 Star !
+
+还会持续更新，欢迎 Star !
