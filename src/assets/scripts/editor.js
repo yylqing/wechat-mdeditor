@@ -129,5 +129,10 @@ let app = new Vue({
     openWindow: function (url) {
       window.open(url);
     }
+  },
+  updated: function () {
+    this.$nextTick(function () {
+      prettyPrint()
+    })
   }
 });
