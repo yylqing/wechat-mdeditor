@@ -174,7 +174,7 @@ let WxRenderer = function (opts) {
       return `<strong ${ getStyles('strong') }>${ text }</strong>`;
     };
     renderer.table = function (header, body) {
-      return `<table ${ getStyles('table') }><thead ${ getStyles('thead') }>${ header }</thead><tbody>${ body }</tbody></table>`;
+      return `<table class="preview-table"><thead ${ getStyles('thead') }>${ header }</thead><tbody>${ body }</tbody></table>`;
     };
     renderer.tablecell = function (text, flags) {
       return `<td ${ getStyles('td') }>${ text }</td>`;
