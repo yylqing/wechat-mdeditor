@@ -4,70 +4,86 @@ let WxRenderer = function (opts) {
   let ENV_STETCH_IMAGE = true;
 
   let footnotes = [];
-  let footnoteindex = 0;
+  let footnoteIndex = 0;
   let styleMapping = null;
 
   let CODE_FONT_FAMILY = "Menlo, Operator Mono, Consolas, Monaco, monospace";
 
-  let COPY = function (base, extend) {
+  let merge = function (base, extend) {
     return Object.assign({}, base, extend)
   };
 
   this.buildTheme = function (themeTpl) {
     let mapping = {};
-    let base = COPY(themeTpl.BASE, {
+    let base = merge(themeTpl.BASE, {
       'font-family': this.opts.fonts,
       'font-size': this.opts.size
     });
-    let base_block = COPY(base, {});
+    let base_block = merge(base, {});
     for (let ele in themeTpl.inline) {
       if (themeTpl.inline.hasOwnProperty(ele)) {
         let style = themeTpl.inline[ele];
-        if (ele === 'code' || ele === 'codespan') {
+        if (ele === 'codespan') {
           style['font-family'] = CODE_FONT_FAMILY
         }
-        mapping[ele] = COPY(base, style)
+        mapping[ele] = merge(base, style)
       }
     }
     for (let ele in themeTpl.block) {
       if (themeTpl.block.hasOwnProperty(ele)) {
         let style = themeTpl.block[ele];
-        if (ele === 'code_section') {
+        if (ele === 'code') {
           style['font-family'] = CODE_FONT_FAMILY
         }
-        mapping[ele] = COPY(base_block, style)
+        mapping[ele] = merge(base_block, style)
       }
     }
     return mapping
   };
 
-  let S = function (tokenName) {
+  let getStyles = function (tokenName) {
     let arr = [];
     let dict = styleMapping[tokenName];
     for (const key in dict) {
       arr.push(key + ':' + dict[key])
     }
-    return 'style="' + arr.join(';') + '"'
+    return `style="${ arr.join(';') }"`
   };
 
   let addFootnote = function (title, link) {
-    footnoteindex += 1;
-    footnotes.push([footnoteindex, title, link]);
-    return footnoteindex
+    footnoteIndex += 1;
+    footnotes.push([footnoteIndex, title, link]);
+    return footnoteIndex
   };
 
   this.buildFootnotes = function () {
     let footnoteArray = footnotes.map(function (x) {
       if (x[1] === x[2]) {
-        return '<code style="font-size: 90%; opacity: 0.6;">[' + x[0] + ']</code>: <i>' + x[1] + '</i><br/>'
+        return `<code style="font-size: 90%; opacity: 0.6;">[${ x[0] }]</code>: <i>${ x[1] }</i><br/>`
       }
-      return '<code style="font-size: 90%; opacity: 0.6;">[' + x[0] + ']</code> ' + x[1] + ': <i>' + x[2] + '</i><br/>'
+      return `<code style="font-size: 90%; opacity: 0.6;">[${ x[0] }]</code> ${ x[1] }: <i>${ x[2] }</i><br/>`
     });
-    return '<h2 ' + S('h2') + '>References</h2><p ' + S('footnotes') + '>' + footnoteArray.join('\n') + '</p>'
+    return `<h2 ${ getStyles('h2') }>References</h2><p ${ getStyles('footnotes') }>${ footnoteArray.join('\n') }</p>`
+  };
+
+  this.buildAddition = function () {
+    return '<style>.preview-wrapper pre::before{' +
+      'font-family:"SourceSansPro","HelveticaNeue",Arial,sans-serif;' +
+      'position:absolute;' +
+      'top:0;' +
+      'right:0;' +
+      'color:#ccc;' +
+      'text-align:right;' +
+      'font-size:0.8em;' +
+      'padding:5px10px0;' +
+      'line-height:15px;' +
+      'height:15px;' +
+      'font-weight:600;' +
+      '}</style>'
   };
 
   this.setOptions = function (newOpts) {
-    this.opts = COPY(this.opts, newOpts)
+    this.opts = merge(this.opts, newOpts)
   };
 
   this.hasFootnotes = function () {
@@ -76,7 +92,7 @@ let WxRenderer = function (opts) {
 
   this.getRenderer = function () {
     footnotes = [];
-    footnoteindex = 0;
+    footnoteIndex = 0;
 
     styleMapping = this.buildTheme(this.opts.theme);
     let renderer = new marked.Renderer();
@@ -85,20 +101,20 @@ let WxRenderer = function (opts) {
     renderer.heading = function (text, level) {
       switch (level) {
         case 1:
-          return '<h1 ' + S('h1') + '>' + text + '</h1>';
+          return `<h1 ${ getStyles('h1') }>${ text }</h1>`;
         case 2:
-          return '<h2 ' + S('h2') + '>' + text + '</h2>';
+          return `<h2 ${ getStyles('h2') }>${ text }</h2>`;
         case 3:
-          return '<h3 ' + S('h3') + '>' + text + '</h3>';
+          return `<h3 ${ getStyles('h3') }>${ text }</h3>`;
         default:
-          return '<h4 ' + S('h4') + '>' + text + '</h4>'
+          return `<h4 ${ getStyles('h4') }>${ text }</h4>`;
       }
     };
     renderer.paragraph = function (text) {
-      return '<p ' + S('p') + '>' + text + '</p>'
+      return `<p ${ getStyles('p') }>${ text }</p>`
     };
     renderer.blockquote = function (text) {
-      return '<blockquote ' + S('blockquote') + '>' + text + '</blockquote>'
+      return `<blockquote ${ getStyles('blockquote') }>${ text }</blockquote>`
     };
     renderer.code = function (text, infoString) {
       text = text.replace(/</g, "&lt;");
@@ -106,65 +122,65 @@ let WxRenderer = function (opts) {
 
       let lines = text.split('\n');
       let codeLines = [];
-      // let numbers = [];
+      let numbers = [];
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        codeLines.push('<code ' + S('code') + '><span class="code-snippet_outer">' + (line || '<br>') + '</span></code>');
-        // numbers.push('<li></li>')
+        codeLines.push(`<code><span class="code-snippet_outer">${ (line || '<br>') }</span></code>`);
+        numbers.push('<li></li>')
       }
       let lang = infoString || '';
-      return '<section ' + S('code_section') + ' class="code-snippet__fix code-snippet__js">'
-        // + '<ul class="code-snippet__line-index code-snippet__js">' + numbers.join('')+'</ul>'
-        + '<pre class="code-snippet__js prettyprint" data-lang="' + lang + '">'
+      return `<section class="code-snippet__fix code-snippet__js">`
+        + `<ul class="code-snippet__line-index code-snippet__js">${ numbers.join('') }</ul>`
+        + `<pre class="code-snippet__js prettyprint" data-lang="${ lang }">`
         + codeLines.join('')
-        + '</pre></section>'
+        + `</pre></section>`
     };
     renderer.codespan = function (text, infoString) {
-      return '<code ' + S('codespan') + '>' + text + '</code>'
+      return `<code ${ getStyles('codespan') }>${ text }</code>`
     };
     renderer.listitem = function (text) {
-      return '<span ' + S('listitem') + '><span style="margin-right: 10px;"><%s/></span>' + text + '</span>';
+      return `<span ${ getStyles('listitem') }><span style="margin-right: 10px;"><%s/></span>${ text }</span>`;
     };
     renderer.list = function (text, ordered, start) {
       let segments = text.split('<%s/>');
       if (!ordered) {
         text = segments.join('•');
-        return '<p ' + S('ul') + '>' + text + '</p>';
+        return `<p ${ getStyles('ul') }>${ text }</p>`;
       }
       text = segments[0];
       for (let i = 1; i < segments.length; i++) {
         text = text + i + '.' + segments[i];
       }
-      return '<p ' + S('ol') + '>' + text + '</p>';
+      return `<p ${ getStyles('ol') }>${ text }</p>`;
     };
     renderer.image = function (href, title, text) {
-      return '<img ' + S(ENV_STETCH_IMAGE ? 'image' : 'image_org') + ' src="' + href + '" title="' + title + '" alt="' + text + '"/>'
+      return `<img ${ getStyles(ENV_STETCH_IMAGE ? 'image' : 'image_org') } src="${ href }" title="${ title }" alt="${ text }"/>`
     };
     renderer.link = function (href, title, text) {
       if (href.indexOf('https://mp.weixin.qq.com') === 0) {
-        return '<a href="' + href + '" title="' + (title || text) + '" ' + S('wx_link') + '>' + text + '</a>';
+        return `<a href="${ href }" title="${ (title || text) }" ${ getStyles('wx_link') }>${ text }</a>`;
       } else if (href === text) {
         return text;
       } else {
         if (ENV_USE_REFERENCES) {
           let ref = addFootnote(title || text, href);
-          return '<span ' + S('link') + '>' + text + '<sup>[' + ref + ']</sup></span>';
+          return `<span ${ getStyles('link') }>${ text }<sup>[${ ref }]</sup></span>`;
         } else {
-          return '<a href="' + href + '" title="' + (title || text) + '" ' + S('link') + '>' + text + '</a>';
+          return `<a href="${ href }" title="${ (title || text) }" ${ getStyles('link') }>${ text }</a>`;
         }
       }
     };
     renderer.strong = renderer.em = function (text) {
-      return '<strong ' + S('strong') + '>' + text + '</strong>';
+      return `<strong ${ getStyles('strong') }>${ text }</strong>`;
     };
     renderer.table = function (header, body) {
-      return '<table ' + S('table') + '><thead ' + S('thead') + '>' + header + '</thead><tbody>' + body + '</tbody></table>';
+      return `<table ${ getStyles('table') }><thead ${ getStyles('thead') }>${ header }</thead><tbody>${ body }</tbody></table>`;
     };
     renderer.tablecell = function (text, flags) {
-      return '<td ' + S('td') + '>' + text + '</td>';
+      return `<td ${ getStyles('td') }>${ text }</td>`;
     };
     renderer.hr = function () {
-      return '<hr style="border-style: solid;border-width: 1px 0 0;border-color: rgba(0,0,0,0.1);-webkit-transform-origin: 0 0;-webkit-transform: scale(1, 0.5);transform-origin: 0 0;transform: scale(1, 0.5);">';
+      return `<hr style="border-style: solid;border-width: 1px 0 0;border-color: rgba(0,0,0,0.1);-webkit-transform-origin: 0 0;-webkit-transform: scale(1, 0.5);transform-origin: 0 0;transform: scale(1, 0.5);">`;
     };
     return renderer
   }

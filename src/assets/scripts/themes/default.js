@@ -42,9 +42,16 @@ let defaultTheme = {
       'background': 'rgba(158, 158, 158, 0.1)',
       'border-left': '3px solid rgb(158,158,158)',
     },
-    code_section: {
-      'background': '#f8f8f8',
-      'box-shadow': '0 1px 2px #ccc'
+    code: {
+      'font-size': '80%',
+      'overflow': 'auto',
+      'color': '#333',
+      'background': 'rgb(247, 247, 247)',
+      'border-radius': '2px',
+      'padding': '10px',
+      'line-height': '1.3',
+      'border': '1px solid rgb(236,236,236)',
+      'margin': '20px 0',
     },
     image: {
       'border-radius': '4px',
@@ -77,11 +84,8 @@ let defaultTheme = {
       'display': 'block',
       'margin': '0.5em 8px'
     },
-    code: {
-      'font-size': '80%',
-    },
     codespan: {
-      'font-size': '80%',
+      'font-size': '90%',
       'color': '#d14',
       'background': 'rgba(27,31,35,.05)',
       'padding': '3px 5px',

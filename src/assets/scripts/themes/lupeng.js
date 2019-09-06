@@ -9,6 +9,12 @@ let lupengTheme = {
     'margin': '20px 10px'
   },
   block: {
+    h1: {
+      'font-size': '140%',
+      'text-align': 'center',
+      'font-weight': 'normal',
+      'margin': '80px 10px 40px 10px'
+    },
     h2: {
       'font-size': '140%',
       'text-align': 'center',
@@ -116,4 +122,4 @@ let lupengTheme = {
       'font-size': '12px',
     }
   }
-}
+};

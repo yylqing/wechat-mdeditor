@@ -46,13 +46,16 @@ let app = new Vue({
   },
   mounted() {
     let self = this;
-    this.editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-      lineNumbers: false,
-      lineWrapping: true,
-      styleActiveLine: true,
-      theme: this.currentEditorTheme,
-      mode: 'text/x-markdown',
-    });
+    this.editor = CodeMirror.fromTextArea(
+      document.getElementById('editor'),
+      {
+        lineNumbers: false,
+        lineWrapping: true,
+        styleActiveLine: true,
+        theme: this.currentEditorTheme,
+        mode: 'text/x-markdown',
+      }
+    );
     this.editor.on("change", function (cm, change) {
       self.refresh()
     });
@@ -72,7 +75,8 @@ let app = new Vue({
     renderWeChat: function (source) {
       let output = marked(source, { renderer: this.wxRenderer.getRenderer() });
       if (this.wxRenderer.hasFootnotes()) {
-        output += this.wxRenderer.buildFootnotes()
+        output += this.wxRenderer.buildFootnotes();
+        output += this.wxRenderer.buildAddition();
       }
       return output
     },
