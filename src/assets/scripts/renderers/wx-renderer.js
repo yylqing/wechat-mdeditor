@@ -1,7 +1,7 @@
 let WxRenderer = function (opts) {
   this.opts = opts;
   let ENV_USE_REFERENCES = true;
-  let ENV_STETCH_IMAGE = true;
+  let ENV_STRETCH_IMAGE = true;
 
   let footnotes = [];
   let footnoteIndex = 0;
@@ -24,7 +24,8 @@ let WxRenderer = function (opts) {
       if (themeTpl.inline.hasOwnProperty(ele)) {
         let style = themeTpl.inline[ele];
         if (ele === 'codespan') {
-          style['font-family'] = CODE_FONT_FAMILY
+          style['font-family'] = CODE_FONT_FAMILY;
+          style['white-space'] = 'nowrap';
         }
         mapping[ele] = merge(base, style)
       }
@@ -142,7 +143,8 @@ let WxRenderer = function (opts) {
       return `<span ${ getStyles('listitem') }><span style="margin-right: 10px;"><%s/></span>${ text }</span>`;
     };
     renderer.list = function (text, ordered, start) {
-      let segments = text.split('<%s/>');
+      text = text.replace(/<\/*p.*?>/g, '');
+      let segments = text.split(`<%s/>`);
       if (!ordered) {
         text = segments.join('•');
         return `<p ${ getStyles('ul') }>${ text }</p>`;
@@ -154,7 +156,7 @@ let WxRenderer = function (opts) {
       return `<p ${ getStyles('ol') }>${ text }</p>`;
     };
     renderer.image = function (href, title, text) {
-      return `<img ${ getStyles(ENV_STETCH_IMAGE ? 'image' : 'image_org') } src="${ href }" title="${ title }" alt="${ text }"/>`
+      return `<img ${ getStyles(ENV_STRETCH_IMAGE ? 'image' : 'image_org') } src="${ href }" title="${ title }" alt="${ text }"/>`
     };
     renderer.link = function (href, title, text) {
       if (href.indexOf('https://mp.weixin.qq.com') === 0) {
