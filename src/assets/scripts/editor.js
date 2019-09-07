@@ -14,7 +14,7 @@ let app = new Vue({
       builtinFonts: [
         {
           label: '无衬线',
-          value: "Roboto, Oxygen, Ubuntu, Cantarell, PingFangSC-light, PingFangTC-light, 'Open Sans', 'Helvetica Neue', sans-serif"
+          value: "-apple-system-font,BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB , Microsoft YaHei UI , Microsoft YaHei ,Arial,sans-serif"
         },
         {
           label: '衬线',
@@ -22,9 +22,10 @@ let app = new Vue({
         }
       ],
       sizeOption: [
-        { label: '16px', value: '16px', desc: '默认' },
-        { label: '17px', value: '17px', desc: '正常' },
-        { label: '18px', value: '18px', desc: '稍大' }
+        { label: '14px', value: '14px', desc: '稍小' },
+        { label: '15px', value: '15px', desc: '默认' },
+        { label: '16px', value: '16px', desc: '稍大' },
+        { label: '17px', value: '17px', desc: '很大' },
       ],
       themeOption: [
         { label: 'default', value: 'default', author: '张凯强' },
@@ -40,7 +41,7 @@ let app = new Vue({
     };
     d.currentEditorTheme = d.editorThemes[0].value;
     d.currentFont = d.builtinFonts[0].value;
-    d.currentSize = d.sizeOption[0].value;
+    d.currentSize = d.sizeOption[1].value;
     d.currentTheme = d.themeOption[0].value;
     return d;
   },
@@ -75,7 +76,11 @@ let app = new Vue({
     renderWeChat: function (source) {
       let output = marked(source, { renderer: this.wxRenderer.getRenderer() });
       if (this.wxRenderer.hasFootnotes()) {
+        // 去除第一行的 margin-top
+        output = output.replace(/(style=".*?)"/, '$1;margin-top: 0"');
+        // 引用注脚
         output += this.wxRenderer.buildFootnotes();
+        // 附加的一些 style
         output += this.wxRenderer.buildAddition();
       }
       return output

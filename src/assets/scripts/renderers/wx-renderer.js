@@ -45,6 +45,7 @@ let WxRenderer = function (opts) {
   let getStyles = function (tokenName) {
     let arr = [];
     let dict = styleMapping[tokenName];
+    if (!dict) return '';
     for (const key in dict) {
       arr.push(key + ':' + dict[key])
     }
@@ -64,7 +65,7 @@ let WxRenderer = function (opts) {
       }
       return `<code style="font-size: 90%; opacity: 0.6;">[${ x[0] }]</code> ${ x[1] }: <i>${ x[2] }</i><br/>`
     });
-    return `<h2 ${ getStyles('h2') }>References</h2><p ${ getStyles('footnotes') }>${ footnoteArray.join('\n') }</p>`
+    return `<h3 ${ getStyles('h3') }>References</h3><p ${ getStyles('footnotes') }>${ footnoteArray.join('\n') }</p>`
   };
 
   this.buildAddition = function () {
@@ -115,6 +116,7 @@ let WxRenderer = function (opts) {
       return `<p ${ getStyles('p') }>${ text }</p>`
     };
     renderer.blockquote = function (text) {
+      text = text.replace(/<p.*?>/, `<p ${ getStyles('blockquote_p') }>`);
       return `<blockquote ${ getStyles('blockquote') }>${ text }</blockquote>`
     };
     renderer.code = function (text, infoString) {
