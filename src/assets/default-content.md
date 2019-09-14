@@ -99,7 +99,7 @@ a paragraph with inline code `{code: 0}`
 
 例如：
 
-[这是一篇公众号文章](https://mp.weixin.qq.com/example/#####)
+[这是一篇公众号文章](http://mp.weixin.qq.com/s?__biz=MzU2ODgwNTA5Mg==&mid=100000033&idx=1&sn=ce238e4fa2dd03a3457866cb9e60bebb&chksm=7c8912aa4bfe9bbc781bb56cf7da0a6d42e20f3fc095653098439dd03afee66c1e0962b08465#rd)
 
 [这是我的博客地址](http://zkqiang.cn)
 
