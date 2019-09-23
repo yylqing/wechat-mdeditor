@@ -75,7 +75,7 @@ let defaultTheme = {
     image: {
       'border-radius': '4px',
       'display': 'block',
-      'margin': '2em auto',
+      'margin': '0.5em auto',
       'width': '100%'
     },
     image_org: {
@@ -94,6 +94,9 @@ let defaultTheme = {
     footnotes: {
       'margin': '0.5em 8px',
       'font-size': '80%'
+    },
+    figure: {
+      'margin': '1.5em 8px',
     }
   },
   inline: {
@@ -137,6 +140,11 @@ let defaultTheme = {
     },
     footnote: {
       'font-size': '12px'
+    },
+    figcaption: {
+      'text-align': 'center',
+      'color': '#888',
+      'font-size': '0.8em'
     }
   }
 };

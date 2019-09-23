@@ -42,14 +42,14 @@ let WxRenderer = function (opts) {
     return mapping
   };
 
-  let getStyles = function (tokenName) {
+  let getStyles = function (tokenName, addition) {
     let arr = [];
     let dict = styleMapping[tokenName];
     if (!dict) return '';
     for (const key in dict) {
       arr.push(key + ':' + dict[key])
     }
-    return `style="${ arr.join(';') }"`
+    return `style="${ arr.join(';') + (addition || '') }"`
   };
 
   let addFootnote = function (title, link) {
@@ -158,7 +158,13 @@ let WxRenderer = function (opts) {
       return `<p ${ getStyles('ol') }>${ text }</p>`;
     };
     renderer.image = function (href, title, text) {
-      return `<img ${ getStyles(ENV_STRETCH_IMAGE ? 'image' : 'image_org') } src="${ href }" title="${ title }" alt="${ text }"/>`
+      let subText = '';
+      if (text) {
+        subText = `<figcaption ${ getStyles('figcaption') }>${ text }</figcaption>`
+      }
+      let figureStyles = getStyles('figure');
+      let imgStyles = getStyles(ENV_STRETCH_IMAGE ? 'image' : 'image_org');
+      return `<figure ${ figureStyles }><img ${ imgStyles } src="${ href }" title="${ title }" alt="${ text }"/>${ subText }</figure>`
     };
     renderer.link = function (href, title, text) {
       if (href.indexOf('https://mp.weixin.qq.com') === 0) {
@@ -174,10 +180,13 @@ let WxRenderer = function (opts) {
         }
       }
     };
-    renderer.strong = renderer.em = function (text) {
+    renderer.strong = function (text) {
       return `<strong ${ getStyles('strong') }>${ text }</strong>`;
     };
-    renderer.table = function (header, body) {
+    renderer.em = function (text) {
+      return `<p ${ getStyles('p', ';font-style: italic;')}>${ text }</p>`
+    };
+      renderer.table = function (header, body) {
       return `<table class="preview-table"><thead ${ getStyles('thead') }>${ header }</thead><tbody>${ body }</tbody></table>`;
     };
     renderer.tablecell = function (text, flags) {
