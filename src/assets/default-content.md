@@ -43,7 +43,7 @@
 
 接下来是一张图片。你可以用自己图床，也可以上传到微信媒体库再把图片 URL 粘贴回来，或者编辑好以后，在公众号里插入图片。
 
-![这里可增加描述](https://res.wx.qq.com/mpres/zh_CN/htmledition/pages/login/loginpage/images/bg_banner4273fb.png)
+![这里可以写描述](https://res.wx.qq.com/mpres/zh_CN/htmledition/pages/login/loginpage/images/bg_banner4273fb.png)
 
 如果使用图床链接的话，有可能复制后图片不能被上传，需要手动在微信重新上传替换。
 
@@ -99,7 +99,7 @@ a paragraph with inline code `{code: 0}`
 
 例如：
 
-[这是一篇公众号文章](http://mp.weixin.qq.com/s?__biz=MzU2ODgwNTA5Mg==&mid=100000033&idx=1&sn=ce238e4fa2dd03a3457866cb9e60bebb&chksm=7c8912aa4bfe9bbc781bb56cf7da0a6d42e20f3fc095653098439dd03afee66c1e0962b08465#rd)
+[这是一篇公众号文章](https://mp.weixin.qq.com/s/ahpV7Poj5wHmtUP6vqy3gg)
 
 [这是我的博客地址](http://zkqiang.cn)
 
