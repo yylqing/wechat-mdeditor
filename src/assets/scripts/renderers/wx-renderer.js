@@ -25,7 +25,7 @@ let WxRenderer = function (opts) {
         let style = themeTpl.inline[ele];
         if (ele === 'codespan') {
           style['font-family'] = CODE_FONT_FAMILY;
-          style['white-space'] = 'nowrap';
+          style['white-space'] = 'normal';
         }
         mapping[ele] = merge(base, style)
       }

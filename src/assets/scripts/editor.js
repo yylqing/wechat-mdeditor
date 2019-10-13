@@ -58,19 +58,31 @@ let app = new Vue({
       }
     );
     this.editor.on("change", function (cm, change) {
-      self.refresh()
+      // 刷新右侧预览
+      self.refresh();
+      // 将左侧编辑器内容保存到 LocalStorage
+      let content = self.editor.getValue(0);
+      if (content){
+        localStorage.setItem("__editor_content", content);
+      } else {
+        localStorage.removeItem("__editor_content");
+      }
     });
     this.wxRenderer = new WxRenderer({
       theme: this.styleThemes.default,
       fonts: this.currentFont,
       size: this.currentSize
     });
-    axios({
-      method: 'get',
-      url: './assets/default-content.md',
-    }).then(function (resp) {
-      self.editor.setValue(resp.data)
-    })
+    if (localStorage.getItem("__editor_content")) {
+      this.editor.setValue(localStorage.getItem("__editor_content"));
+    } else {
+      axios({
+        method: 'get',
+        url: './assets/default-content.md',
+      }).then(function (resp) {
+        self.editor.setValue(resp.data)
+      })
+    }
   },
   methods: {
     renderWeChat: function (source) {
