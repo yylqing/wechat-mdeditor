@@ -58,21 +58,15 @@ let app = new Vue({
       }
     );
     this.editor.on("change", function (cm, change) {
-      // 刷新右侧预览
       self.refresh();
-      // 将左侧编辑器内容保存到 LocalStorage
-      let content = self.editor.getValue(0);
-      if (content){
-        localStorage.setItem("__editor_content", content);
-      } else {
-        localStorage.removeItem("__editor_content");
-      }
+      self.saveEditorContent();
     });
     this.wxRenderer = new WxRenderer({
       theme: this.styleThemes.default,
       fonts: this.currentFont,
       size: this.currentSize
     });
+    // 如果有编辑内容被保存则读取，否则加载默认文档
     if (localStorage.getItem("__editor_content")) {
       this.editor.setValue(localStorage.getItem("__editor_content"));
     } else {
@@ -83,6 +77,13 @@ let app = new Vue({
         self.editor.setValue(resp.data)
       })
     }
+    // 右栏跟随左栏滚动
+    this.editor.on("scroll", function () {
+      const $editor = document.querySelector("div.CodeMirror-scroll");
+      let percentage = $editor.scrollTop / ($editor.scrollHeight - $editor.offsetHeight);
+      let height = percentage * (this.preview.scrollHeight - this.preview.offsetHeight);
+      this.preview.scrollTo(0, height);
+    });
   },
   methods: {
     renderWeChat: function (source) {
@@ -119,8 +120,18 @@ let app = new Vue({
       });
       this.refresh()
     },
+    // 刷新右侧预览
     refresh: function () {
       this.output = this.renderWeChat(this.editor.getValue(0))
+    },
+    // 将左侧编辑器内容保存到 LocalStorage
+    saveEditorContent: function () {
+      let content = this.editor.getValue(0);
+      if (content){
+        localStorage.setItem("__editor_content", content);
+      } else {
+        localStorage.removeItem("__editor_content");
+      }
     },
     copy: function () {
       let clipboardDiv = document.getElementById('output');
