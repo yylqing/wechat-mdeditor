@@ -224,10 +224,10 @@
     renderer.text = function (text) {
       let options = {
         furigana: true,
-        furiganaForms: "[]:^:()|[]::{}",
-        furiganaFallbackBrackets: "【】",
+        furiganaForms: "()::{}",
+        furiganaFallbackBrackets: "{}",
         furiganaStrictMode: false,
-        furiganaAutoBracketSets: "【】|{}",
+        furiganaAutoBracketSets: "{}",
         furiganaPatternMatching: true,
       };
       // console.log('override text render',text);
@@ -239,5 +239,3 @@
   return FuriganaMD;
 
 })));
-// console.log(marked('日语假名，小夜時雨【さ・よ・しぐれ】应该这样写', { renderer: renderer }));
-// <ruby>小<rp>【</rp><rt>さ</rt><rp>】</rp></ruby>
