@@ -77,13 +77,6 @@ let app = new Vue({
         self.editor.setValue(resp.data)
       })
     }
-    // 右栏跟随左栏滚动
-    this.editor.on("scroll", function () {
-      const $editor = document.querySelector("div.CodeMirror-scroll");
-      let percentage = $editor.scrollTop / ($editor.scrollHeight - $editor.offsetHeight);
-      let height = percentage * (this.preview.scrollHeight - this.preview.offsetHeight);
-      this.preview.scrollTo(0, height);
-    });
   },
   methods: {
     renderWeChat: function (source) {
