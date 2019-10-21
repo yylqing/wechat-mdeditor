@@ -22,12 +22,12 @@
 </head>
 <body>
   <!--loading 界面-->
-  <section class="loading" id="loading">
-    <div class="loading__item">
-      <div class="loading__text">Loading...</div>
-      <div class="loading__anim"></div>
+  <div class="loading" id="loading">
+    <div class="loading-wrapper">
+      <div class="loading-text">Loading...</div>
+      <div class="loading-anim"></div>
     </div>
-  </section>
+  </div>
 
   <!--应用主体-->
   <div id="app" class="container">
@@ -49,8 +49,8 @@
                          :key="font.value"
                          :label="font.label"
                          :value="font.value">
-                <span style="float: left">{{ font.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">Abc</span>
+                <span class="select-item-left">{{ font.label }}</span>
+                <span class="select-item-right">Abc</span>
               </el-option>
             </el-select>
           </el-form-item>
@@ -60,16 +60,16 @@
                          :key="size.value"
                          :label="size.label"
                          :value="size.value">
-                <span style="float: left">{{ size.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{ size.desc }}</span>
+                <span class="select-item-left">{{ size.label }}</span>
+                <span class="select-item-right">{{ size.desc }}</span>
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Themes">
             <el-select v-model="currentTheme" size="mini" placeholder="选择主题样式" @change="themeChanged">
               <el-option v-for="theme in themeOption" :key="theme.value" :label="theme.label" :value="theme.value">
-                <span style="float: left">{{ theme.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{ theme.author }}</span>
+                <span class="select-item-left">{{ theme.label }}</span>
+                <span class="select-item-right">{{ theme.author }}</span>
               </el-option>
             </el-select>
           </el-form-item>
