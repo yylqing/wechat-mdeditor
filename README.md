@@ -19,9 +19,3 @@
 本仓库 Fork 自 [yricat/wechat-format](https://github.com/lyricat/wechat-format)，并根据自用需求进行修改开发。
 
 感谢他的创意和贡献！
-
-## 支持
-
-欢迎喜欢编程的朋友，关注我的微信公众号：面向人生编程
-
-![](http://static.zkqiang.cn/images/20190818175845.jpg-slim)
